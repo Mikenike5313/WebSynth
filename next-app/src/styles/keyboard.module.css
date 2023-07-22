@@ -1,0 +1,19 @@
+.keyboard {
+    margin: auto 4.99vw;
+    position: fixed;
+    bottom: 0;
+}
+
+.whitekey {
+    width: 6vw;
+    height: 27vw;
+    border: solid black;
+}
+
+.blackkey {
+    margin: auto -1.5vw;
+    position: absolute;
+    width: 3vw;
+    height: 16.5vw;
+    background: black;
+}
