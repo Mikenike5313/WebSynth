@@ -1,0 +1,7 @@
+.largeKnob {
+    border-radius: 50%;
+    border-color: black;
+    border-width: 0.01vw;
+    width: 8vw;
+    height: 8vw;
+}
