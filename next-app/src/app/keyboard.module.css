@@ -5,12 +5,14 @@
 }
 
 .whitekey {
+    display: inline-block;
     width: 6vw;
     height: 27vw;
     border: solid black;
 }
 
 .blackkey {
+    display: inline-block;
     margin: auto -1.5vw;
     position: absolute;
     width: 3vw;

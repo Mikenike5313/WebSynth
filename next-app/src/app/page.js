@@ -1,4 +1,4 @@
-import Keyboard from '@/components/keyboard'
+import Keyboard from './keyboard'
 
 export default function Home() {
   return (
