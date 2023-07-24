@@ -1,19 +1,14 @@
 .knob {
-    --knob-size: 8vmin;
-    --knob-border: 0.05vmin;
-    --knob-padding: 0.7vmin;
-    --tick-width: 0.1vmin;
-    --tick-height: 1vmin;
-
     box-sizing: border-box;
     position: relative;
     width: var(--knob-size);
     height: var(--knob-size);
-    border-width: var(--knob-border);
-    border-color: #ccc;
+    border-width: var(--knob-border-width);
+    border-color: var(--knob-accent-color);
+    border-bottom-color: transparent;
     border-radius: 50%;
     padding: var(--knob-padding);
-    background-color: #aaa;
+    background-color: var(--knob-color);
     background-clip: content-box;
     user-select:  none;
 }
@@ -23,14 +18,13 @@
 .knob:active {
     cursor: grabbing;
 }
-.knob:after {
+.tick {
     position: absolute;
     top: var(--knob-padding);
-    left: calc(50% - var(--tick-width));
-    width: var(--tick-width);
-    height: var(--tick-height);
+    left: calc(50% - var(--knob-tick-width));
+    width: var(--knob-tick-width);
+    height: var(--knob-tick-height);
     content: "";
-    background-color: white;
-    transform-origin: calc(var(--tick-width)/2) calc(var(--knob-size)/2 - var(--knob-padding) - var(--knob-border));
-    transform: rotate(0deg)
+    background-color: var(--knob-accent-color);
+    transform-origin: calc(var(--knob-tick-width)/2) calc(var(--knob-size)/2 - var(--knob-padding) - var(--knob-border-width));
 }

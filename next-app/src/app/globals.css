@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --bg-color: #333;
+
+    /*  Knob Variables  */
+    --knob-size: 16vmin;
+    --knob-border-width: 0.2vmin;
+    --knob-padding: 1.4vmin;
+    --knob-tick-width: 0.2vmin;
+    --knob-tick-height: 2vmin;
+    --knob-color: #aaa;
+    --knob-accent-color: #ccc;
+    /*                  */
+}
+
 body {
-    background-color: #333;
+    background-color: var(--bg-color);
 }
