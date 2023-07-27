@@ -32,7 +32,13 @@ function fiddle(evt) {
 function getValue(knob) {
     let knobHead = knob.querySelector("."+styles.knobHeadTick);
     let rotation = knobHead.style.transform == "" ? 0 : parseFloat(knobHead.style.transform.match(/[+-]?[0-9]+[.]?[0-9]*/));
-    return (rotation+135)/270;
+    return (rotation+135)/270; // in [0,1]
+}
+
+function setValue(knob, value_0_1) {
+    let rotation = value_0_1*270 - 135;
+    let knobHead = knob.querySelector("."+styles.knobHeadTick);
+    knobHead.style.transform = "rotate("+rotation+"deg)"
 }
 
 export default function GainKnob() {
