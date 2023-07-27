@@ -30,6 +30,7 @@ function fiddle(evt) {
 }
 
 function getValue(knob) {
+    let knobHead = knob.querySelector("."+styles.knobHeadTick);
     let rotation = knobHead.style.transform == "" ? 0 : parseFloat(knobHead.style.transform.match(/[+-]?[0-9]+[.]?[0-9]*/));
     return (rotation+135)/270;
 }
