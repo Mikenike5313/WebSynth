@@ -27,4 +27,5 @@
     content: "";
     background-color: var(--knob-accent-color);
     transform-origin: calc(var(--knob-tick-width)/2) calc(var(--knob-size)/2 - var(--knob-padding) - var(--knob-border-width));
+    transform: rotate(0deg);
 }
