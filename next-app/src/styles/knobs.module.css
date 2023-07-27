@@ -8,8 +8,7 @@
     border-bottom-color: transparent;
     border-radius: 50%;
     padding: var(--knob-padding);
-    background-color: var(--knob-color);
-    background-clip: content-box;
+    background-color: transparent;
     user-select:  none;
 }
 .knob:hover {
@@ -18,9 +17,17 @@
 .knob:active {
     cursor: grabbing;
 }
-.tick {
+.knobHead {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--knob-color);
+    user-select:  none;
+}
+.knobHeadTick {
     position: absolute;
-    top: var(--knob-padding);
+    top: 0;
     left: calc(50% - var(--knob-tick-width));
     width: var(--knob-tick-width);
     height: var(--knob-tick-height);
