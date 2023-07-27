@@ -1,5 +1,5 @@
 import GainKnob from '@/components/gainKnob'
-import Keyboard from './keyboard'
+import Keyboard from '@/components/keyboard'
 
 export default function Home() {
   return (

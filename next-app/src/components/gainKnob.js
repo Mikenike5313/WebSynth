@@ -29,6 +29,11 @@ function fiddle(evt) {
     });
 }
 
+function getValue(knob) {
+    let rotation = knobHead.style.transform == "" ? 0 : parseFloat(knobHead.style.transform.match(/[+-]?[0-9]+[.]?[0-9]*/));
+    return (rotation+135)/270;
+}
+
 export default function GainKnob() {
     return (
         <div className={styles.knob}>

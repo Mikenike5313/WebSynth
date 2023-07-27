@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react'
 
-import styles from './keyboard.module.css'
+import styles from '@/styles/keyboard.module.css'
 
 export default function Keyboard() {
-    const AudioContext = window.AudioContext || window.webkitAudioContext
-    const context = new AudioContext()
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const context = new AudioContext();
 
     const oscillators = {}
 
