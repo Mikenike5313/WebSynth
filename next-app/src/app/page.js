@@ -1,9 +1,9 @@
-import Keyboard from './keyboard'
+import Synth from '../components/synth'
 
 export default function Home() {
   return (
     <main>
-      <Keyboard />
+      <Synth />
     </main>
   )
 }
