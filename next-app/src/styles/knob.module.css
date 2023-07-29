@@ -1,0 +1,42 @@
+.knob {
+    box-sizing: border-box;
+    position: relative;
+    width: var(--knob-size);
+    height: var(--knob-size);
+    border-width: var(--knob-border-width);
+    border-color: var(--knob-accent-color);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    padding: var(--knob-padding);
+    background-color: transparent;
+    user-select:  none;
+}
+
+.knob:hover {
+    cursor: grab;
+}
+
+.knob:active {
+    cursor: grabbing;
+}
+
+.knobHead {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--knob-color);
+    user-select:  none;
+}
+
+.knobHeadTick {
+    position: absolute;
+    top: 0;
+    left: calc(50% - var(--knob-tick-width));
+    width: var(--knob-tick-width);
+    height: var(--knob-tick-height);
+    content: "";
+    background-color: var(--knob-accent-color);
+    transform-origin: calc(var(--knob-tick-width)/2) calc(var(--knob-size)/2 - var(--knob-padding) - var(--knob-border-width));
+    transform: rotate(0deg);
+}
