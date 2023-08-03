@@ -37,9 +37,6 @@ const Knob = forwardRef((props, ref) => {
         window.addEventListener("mousemove", turn);
 
         const release = () => {
-            if (turnInit == null) {
-                return;
-            }
             turnInit = null;
         };
         window.addEventListener("mouseup", release);
