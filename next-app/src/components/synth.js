@@ -1,6 +1,7 @@
 'use client'
 
-import GainKnob from './gainknob'
+import { useRef, useEffect } from 'react'
+import Knob from './knob'
 import Keyboard from './keyboard'
 
 const audioContext = new AudioContext()
@@ -36,9 +37,23 @@ export function stopNote(note) {
 }
 
 export default function Synth() {
+    const gainKnob = useRef(null)
+
+    const handleMouseMove = () => {
+        setGain(gainKnob.current?.getVal())
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousemove', handleMouseMove)
+
+        return function cleanup() {
+            document.removeEventListener('mousemove', handleMouseMove)
+        }
+    }, [])
+
     return (
         <>
-            <GainKnob/>
+            <Knob ref={gainKnob}/>
             <Keyboard/>
         </>
     )
