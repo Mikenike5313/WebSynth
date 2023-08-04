@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Knob from './knob'
+import Waveforms from './waveforms'
 import Keyboard from './keyboard'
 
 const audioContext = new AudioContext()
@@ -10,6 +11,8 @@ const oscillators = {}
 const gainNode = audioContext.createGain()
 gainNode.gain.value = 0.5
 gainNode.connect(audioContext.destination)
+
+var waveform = 'sine'
 
 const frequencies = {
     'C3': 130.81, 'C#3': 138.59, 'D3': 146.83, 'D#3': 155.56, 'E3': 164.81,
@@ -23,9 +26,14 @@ export function setGain(newValue) {
     gainNode.gain.value = newValue
 }
 
+export function setWaveform(newValue) {
+    waveform = newValue
+}
+
 export function startNote(note) {
     const node = audioContext.createOscillator()
     node.frequency.value = frequencies[note]
+    node.type = waveform
     oscillators[note] = node
     node.connect(gainNode)
     node.start()
@@ -54,6 +62,7 @@ export default function Synth() {
     return (
         <>
             <Knob param={gain} paramGetter={()=>{return gain}} paramSetter={(val01)=>{setGain(val01);gain=val01}}/>
+            <Waveforms/>
             <Keyboard/>
         </>
     )
