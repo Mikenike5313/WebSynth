@@ -48,7 +48,7 @@ export default function Synth() {
     let [gain, setGain] = useState(0.5);
 
     const handleMouseMove = () => {
-        //console.log(gain);
+        console.log(gain);
     }
 
     useEffect(() => {

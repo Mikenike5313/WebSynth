@@ -18,7 +18,6 @@ export default function Knob(props) {
             return [parseFloat(knobTransformOriginStrArr[0])+parseFloat(knobLeftStrArr[0]), parseFloat(knobTransformOriginStrArr[1]+parseFloat(knobTopStrArr[0]))];
         };
         const turn = (e) => {
-            console.log(turnInit)
             if (turnInit == null) {
                 return;
             }
@@ -44,7 +43,7 @@ export default function Knob(props) {
 
     const knobMouseDown = (e) => {
         let initialAngle = props.paramGetter()*270-135; //knobHead.current.style["transform"] == "" ? 0 : parseFloat(knobHead.current.style["transform"].match(/[+-]?[0-9]+[.]?[0-9]*/));
-        turnInit = {styleRotation:initialAngle, mouseX:e.clientX, mouseY:e.clientY};
+        setTurnInit({styleRotation:initialAngle, mouseX:e.clientX, mouseY:e.clientY});
     };
 
     return (
