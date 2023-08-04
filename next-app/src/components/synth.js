@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Knob from './knob'
 import Keyboard from './keyboard'
 
@@ -37,10 +37,10 @@ export function stopNote(note) {
 }
 
 export default function Synth() {
-    const gainKnob = useRef(null)
+    let [gain, setGain] = useState(0.5);
 
     const handleMouseMove = () => {
-        setGain(gainKnob.current?.getVal())
+        //console.log(gain);
     }
 
     useEffect(() => {
@@ -53,7 +53,7 @@ export default function Synth() {
 
     return (
         <>
-            <Knob ref={gainKnob}/>
+            <Knob param={gain} paramGetter={()=>{return gain}} paramSetter={(val01)=>{setGain(val01);gain=val01}}/>
             <Keyboard/>
         </>
     )
