@@ -6,7 +6,7 @@ import styles from '@/styles/knobs.module.css'
 
 
 export default function Knob(props) {
-    let [turnInit, setTurnInit] = useState(null);
+    let [turning, setTurning] = useState(false);
     const knobHead = useRef(null);
 
     useEffect(() => {
@@ -18,20 +18,20 @@ export default function Knob(props) {
             return [parseFloat(knobTransformOriginStrArr[0])+parseFloat(knobLeftStrArr[0]), parseFloat(knobTransformOriginStrArr[1]+parseFloat(knobTopStrArr[0]))];
         };
         const turn = (e) => {
-            if (turnInit == null) {
+            if (!turning) {
                 return;
             }
             let origin = getTransformOrigin();
-            let grabAngle = Math.atan2(turnInit.mouseX-origin[0], origin[1]-turnInit.mouseY)*180/Math.PI;
+            let grabAngle = Math.atan2(e.clientX-e.movementX-origin[0], origin[1]-e.clientY+e.movementY)*180/Math.PI;
             let moveAngle = Math.atan2(e.clientX-origin[0], origin[1]-e.clientY)*180/Math.PI;
-            let angle = (moveAngle-grabAngle+turnInit.styleRotation+540)%360 - 180;
+            let angle = (moveAngle-grabAngle+props.param*270-135+540)%360 - 180;
             angle = (Math.abs(angle) > 135) ? 135*angle/Math.abs(angle) : angle;
             props.paramSetter((angle+135)/270);
         };
         window.addEventListener("mousemove", turn);
 
         const release = () => {
-            turnInit = null;
+            setTurning(false);
         };
         window.addEventListener("mouseup", release);
 
@@ -39,17 +39,16 @@ export default function Knob(props) {
             window.removeEventListener("mousemove", turn);
             window.removeEventListener("mouseup", release);
         };
-    }, [turnInit]);
+    }, [turning, props.param]);
 
     const knobMouseDown = (e) => {
-        let initialAngle = props.paramGetter()*270-135; //knobHead.current.style["transform"] == "" ? 0 : parseFloat(knobHead.current.style["transform"].match(/[+-]?[0-9]+[.]?[0-9]*/));
-        setTurnInit({styleRotation:initialAngle, mouseX:e.clientX, mouseY:e.clientY});
+        setTurning(true);
     };
 
     return (
         <div className={styles.knob}>
             <div className={styles.knobHead} onMouseDown={knobMouseDown}>
-                <div ref={knobHead} className={styles.knobHeadTick} style={{transform: "rotate("+(props.paramGetter()*270-135)+"deg)"}}></div>
+                <div ref={knobHead} className={styles.knobHeadTick} style={{transform: "rotate("+(props.param*270-135)+"deg)"}}></div>
             </div>
         </div>
     )

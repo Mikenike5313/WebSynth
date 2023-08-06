@@ -47,21 +47,20 @@ export function stopNote(note) {
 export default function Synth() {
     let [gain, setGain] = useState(0.5);
 
-    const handleMouseMove = () => {
-        console.log(gain);
+    const handleMouseMove = (e) => {
+        //console.log(e);
     }
 
     useEffect(() => {
         document.addEventListener('mousemove', handleMouseMove)
-
         return function cleanup() {
             document.removeEventListener('mousemove', handleMouseMove)
         }
-    }, [])
+    }, [gain])
 
     return (
         <>
-            <Knob param={gain} paramGetter={()=>{return gain}} paramSetter={(val01)=>{setGain(val01);gain=val01}}/>
+            <Knob param={gain} paramSetter={setGain}/>
             <Waveforms/>
             <Keyboard/>
         </>
