@@ -8,7 +8,7 @@ import Keyboard from './keyboard'
 const audioContext = new AudioContext()
 
 const env = audioContext.createGain();
-let [a,d,s,r] = [0.1,0.1,0.7,0.5];
+let [a,d,s,r] = [0.1,0.3,0.7,1];
 
 const oscillators = {}
 
@@ -36,7 +36,7 @@ export function startNote(note) {
     node.type = waveform
     oscillators[note] = node
 
-    let t = audioContext.currentTime;
+    const t = audioContext.currentTime;
     env.gain.cancelScheduledValues(t);
     env.gain.setValueAtTime(0, t);
     env.gain.linearRampToValueAtTime(1, t + a);
@@ -47,8 +47,10 @@ export function startNote(note) {
 }
 
 export function stopNote(note) {
-    env.gain.linearRampToValueAtTime(0, audioContext.currentTime + a + d + r);
-    //oscillators[note]?.stop()
+    const t = audioContext.currentTime
+    env.gain.setValueAtTime(s, t)
+    env.gain.linearRampToValueAtTime(0, t + r)
+    oscillators[note]?.stop(t + r)
     delete oscillators[note]
 }
 
@@ -57,6 +59,7 @@ export default function Synth() {
 
     const handleMouseMove = (e) => {
         gainNode.gain.value = gain
+        console.log(env.gain.value)
     }
 
     useEffect(() => {
