@@ -59,7 +59,6 @@ export default function Synth() {
 
     const handleMouseMove = (e) => {
         gainNode.gain.value = gain
-        console.log(env.gain.value)
     }
 
     useEffect(() => {
