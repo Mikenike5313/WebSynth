@@ -22,10 +22,6 @@ const frequencies = {
     'G#4': 415.30, 'A4': 440.00, 'A#4': 466.16, 'B4': 493.88, 'C5': 523.25
 }
 
-export function setGain(newValue) {
-    gainNode.gain.value = newValue
-}
-
 export function setWaveform(newValue) {
     waveform = newValue
 }
@@ -45,10 +41,10 @@ export function stopNote(note) {
 }
 
 export default function Synth() {
-    let [gain, setGain] = useState(0.5);
+    let [gain, setGain] = useState(gainNode.gain.value);
 
     const handleMouseMove = (e) => {
-        //console.log(e);
+        gainNode.gain.value = gain
     }
 
     useEffect(() => {
