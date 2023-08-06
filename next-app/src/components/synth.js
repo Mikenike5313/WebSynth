@@ -7,7 +7,11 @@ import Keyboard from './keyboard'
 
 const audioContext = new AudioContext()
 
+const env = audioContext.createGain();
+let [a,d,s,r] = [0.1,0.1,0.7,0.5];
+
 const oscillators = {}
+
 const gainNode = audioContext.createGain()
 gainNode.gain.value = 0.5
 gainNode.connect(audioContext.destination)
@@ -31,12 +35,20 @@ export function startNote(note) {
     node.frequency.value = frequencies[note]
     node.type = waveform
     oscillators[note] = node
-    node.connect(gainNode)
+
+    let t = audioContext.currentTime;
+    env.gain.cancelScheduledValues(t);
+    env.gain.setValueAtTime(0, t);
+    env.gain.linearRampToValueAtTime(1, t + a);
+    env.gain.linearRampToValueAtTime(s, t + a + d);
+
+    node.connect(env).connect(gainNode)
     node.start()
 }
 
 export function stopNote(note) {
-    oscillators[note]?.stop()
+    env.gain.linearRampToValueAtTime(0, audioContext.currentTime + a + d + r);
+    //oscillators[note]?.stop()
     delete oscillators[note]
 }
 
