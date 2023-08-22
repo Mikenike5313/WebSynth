@@ -1,41 +1,37 @@
-import { useState } from 'react'
+export default function Envelope(props) {
+    function changeAttack(event) {
+        props.attackSetter(parseFloat(event.target.value))
+    }
+    
+    function changeDecay(event) {
+        props.decaySetter(parseFloat(event.target.value))
+    }
+    
+    function changeSustain(event) {
+        props.sustainSetter(parseFloat(event.target.value))
+    }
+    
+    function changeRelease(event) {
+        props.releaseSetter(parseFloat(event.target.value))
+    }
 
-import { setAttack, setDecay, setSustain, setRelease } from './synth'
-
-function changeAttack(event) {
-    setAttack(parseFloat(event.target.value))
-}
-
-function changeDecay(event) {
-    setDecay(parseFloat(event.target.value))
-}
-
-function changeSustain(event) {
-    setSustain(parseFloat(event.target.value))
-}
-
-function changeRelease(event) {
-    setRelease(parseFloat(event.target.value))
-}
-
-export default function Envelope({ attack, decay, sustain, release }) {
     return (
         <div>
             <label>
                 Attack <input type="range" min="0.0" max="2.0" step="0.001"
-                              defaultValue={attack.toString()} onChange={changeAttack}/>
+                              defaultValue={props.attack.toString()} onChange={changeAttack}/>
             </label>
             <label>
                 Decay <input type="range" min="0.0" max="2.0" step="0.001"
-                             defaultValue={decay.toString()} onChange={changeDecay}/>
+                             defaultValue={props.decay.toString()} onChange={changeDecay}/>
             </label>
             <label>
                 Sustain <input type="range" min="0.001" max="1.0" step="0.001"
-                               defaultValue={sustain.toString()} onChange={changeSustain}/>
+                               defaultValue={props.sustain.toString()} onChange={changeSustain}/>
             </label>
             <label>
                 Release <input type="range" min="0.005" max="2.0" step="0.001"
-                               defaultValue={release.toString()} onChange={changeRelease}/>
+                               defaultValue={props.release.toString()} onChange={changeRelease}/>
             </label>
         </div>
     )

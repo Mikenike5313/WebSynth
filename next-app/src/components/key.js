@@ -3,24 +3,24 @@
 import styles from '../styles/keyboard.module.css'
 import { startNote, stopNote } from './synth'
 
-export default function Key({ color, note }) {
+export default function Key(props) {
     let className
 
-    if (color === 'white') {
+    if (props.color === 'white') {
         className = styles.whitekey
     }
-    else if (color === 'black') {
+    else if (props.color === 'black') {
         className = styles.blackkey
     }
 
     return (
         <button className={className}
-                onMouseDown={() => startNote(note)}
-                onMouseUp={() => stopNote(note)}
-                onMouseLeave={() => stopNote(note)}
+                onMouseDown={() => props.startNote(props.note)}
+                onMouseUp={() => props.stopNote(props.note)}
+                onMouseLeave={() => props.stopNote(props.note)}
                 onMouseEnter={event => {
                     if (event.buttons === 1) {
-                        startNote(note)
+                        props.startNote(props.note)
                     }
                 }}>
         </button>

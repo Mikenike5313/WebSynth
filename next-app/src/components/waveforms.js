@@ -1,10 +1,9 @@
 'use client'
 
-import { setWaveform } from "./synth"
 
-export default function Waveforms() {
+export default function Waveforms(props) {
     function handleChange(event) {
-        setWaveform(event.target.value)
+        props.waveformSetter(event.target.value)
     }
 
     return (

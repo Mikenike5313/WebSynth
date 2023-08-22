@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 import Knob      from './knob'
 import Waveforms from './waveforms'
@@ -15,74 +15,66 @@ const frequencies = {
     'G#4': 415.30, 'A4': 440.00, 'A#4': 466.16, 'B4': 493.88, 'C5': 523.25
 }
 
-const context = new AudioContext()
-
-const volume = context.createGain()
-volume.gain.value = 0.5
-volume.connect(context.destination)
-
-const sources = {}
-
-let waveform = 'sine'
-let [attack, decay, sustain, release] = [0.05, 0.25, 0.6, 2]
-
-export function setWaveform(newValue) {
-    waveform = newValue
-}
-
-export function setAttack(newValue) {
-    attack = newValue
-}
-
-export function setDecay(newValue) {
-    decay = newValue
-}
-
-export function setSustain(newValue) {
-    sustain = newValue
-}
-
-export function setRelease(newValue) {
-    release = newValue
-}
-
-export function startNote(note) {
-    const osc = context.createOscillator()
-    osc.frequency.value = frequencies[note]
-    osc.type = waveform
-
-    const env = context.createGain()
-    osc.connect(env).connect(volume)
-
-    sources[note] = { oscillator: osc, envelope: env }
-
-    const now = context.currentTime
-    env.gain.cancelScheduledValues(now)
-    env.gain.setValueAtTime(0.001, now)
-    env.gain.exponentialRampToValueAtTime(1.0, now + attack)
-    env.gain.exponentialRampToValueAtTime(sustain, now + attack + decay)
-    osc.start(now)
-}
-
-export function stopNote(note) {
-    const osc = sources[note].oscillator
-    const env = sources[note].envelope
-
-    const now = context.currentTime
-    env.gain.cancelScheduledValues(now)
-    env.gain.setValueAtTime(env.gain.value, now)
-    env.gain.exponentialRampToValueAtTime(0.001, now + release)
-    osc.stop(now + release)
-
-    delete sources[note]
-}
-
 export default function Synth() {
-    let [gain, setGain] = useState(volume.gain.value);
+    let context = useRef(null);
+
+    let gainNode = useRef(null);
+    let [gain, setGain] = useState(0.5);
+
+    let [attack, setAttack] = useState(0.05)
+    let [decay, setDecay] = useState(0.25)
+    let [sustain, setSustain] = useState(0.6)
+    let [release, setRelease] = useState(2)
+
+    let [waveform, setWaveform] = useState("sine")
+
+    let sources = useRef({});
+
 
     function handleMouseMove() {
-        volume.gain.value = gain
+        gainNode.current.gain.value = gain
     }
+
+    function startNote(note) {
+        const osc = context.current.createOscillator()
+        osc.frequency.value = frequencies[note]
+        osc.type = waveform
+    
+        const env = context.current.createGain()
+        osc.connect(env).connect(gainNode.current)
+    
+        sources.current[note] = { oscillator: osc, envelope: env }
+    
+        const now = context.current.currentTime
+        env.gain.cancelScheduledValues(now)
+        env.gain.setValueAtTime(0.001, now)
+        env.gain.exponentialRampToValueAtTime(1.0, now + attack)
+        env.gain.exponentialRampToValueAtTime(sustain, now + attack + decay)
+        osc.start(now)
+    }
+
+    function stopNote(note) {
+        if(!sources.current[note]) return;
+        const osc = sources.current[note].oscillator
+        const env = sources.current[note].envelope
+    
+        const now = context.current.currentTime
+        env?.gain.cancelScheduledValues(now)
+        env?.gain.setValueAtTime(env.gain.value, now)
+        env?.gain.exponentialRampToValueAtTime(0.001, now + release)
+        osc?.stop(now + release)
+    
+        delete sources.current[note]
+    }
+
+    useEffect(() => {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        context.current = new AudioContext()
+
+        gainNode.current = context.current.createGain()
+        gainNode.current.gain.value = gain
+        gainNode.current.connect(context.current.destination)
+    }, [])
 
     useEffect(() => {
         window.addEventListener('mousemove', handleMouseMove)
@@ -95,9 +87,9 @@ export default function Synth() {
     return (
         <>
             <Knob param={gain} paramSetter={setGain}/>
-            <Waveforms/>
-            <Envelope attack={attack} decay={decay} sustain={sustain} release={release}/>
-            <Keyboard/>
+            <Waveforms waveformSetter={setWaveform}/>
+            <Envelope attack={attack} attackSetter={setAttack} decay={decay} decaySetter={setDecay} sustain={sustain} sustainSetter={setSustain} release={release} releaseSetter={setRelease}/>
+            <Keyboard startNote={startNote} stopNote={stopNote}/>
         </>
     )
 }
