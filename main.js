@@ -38,3 +38,119 @@ const knobMouseDown = (e) => {
 };
 gainKnobHead.addEventListener("mousedown", knobMouseDown);
 /*           */
+
+
+/* Waveforms */
+let waveform = "sine";
+let waveformSelector = document.querySelector("#waveformSelector");
+function handleWaveChange(event) {
+    waveform = event.target.value;
+}
+waveformSelector.addEventListener("change", handleWaveChange);
+/*           */
+
+
+/* ADSR Envelope */
+attack = 0.05;
+attackSlider = document.querySelector("#attackSlider");
+attackSlider.addEventListener("change", (evt)=>{attack=parseFloat(evt.target.value)});
+decay = 0.25;
+decaySlider = document.querySelector("#decaySlider");
+decaySlider.addEventListener("change", (evt)=>{decay=parseFloat(evt.target.value)});
+sustain = 0.6;
+sustainSlider = document.querySelector("#sustainSlider");
+sustainSlider.addEventListener("change", (evt)=>{sustain=parseFloat(evt.target.value)});
+release = 2;
+releaseSlider = document.querySelector("#releaseSlider");
+releaseSlider.addEventListener("change", (evt)=>{release=parseFloat(evt.target.value)});
+/*               */
+
+
+/* Synth */
+const frequencies = {
+    'C3': 130.81, 'C#3': 138.59, 'D3': 146.83, 'D#3': 155.56, 'E3': 164.81,
+    'F3': 174.61, 'F#3': 185.00, 'G3': 196.00, 'G#3': 207.65, 'A3': 220.00,
+    'A#3': 233.08, 'B3': 246.94, 'C4': 261.63, 'C#4': 277.18, 'D4': 293.66,
+    'D#4': 311.13, 'E4': 329.63, 'F4': 349.23, 'F#4': 369.99, 'G4': 392.00,
+    'G#4': 415.30, 'A4': 440.00, 'A#4': 466.16, 'B4': 493.88, 'C5': 523.25
+};
+
+const context = new AudioContext();
+
+const volume = context.createGain();
+volume.gain.value = gain;
+volume.connect(context.destination);
+
+const sources = {};
+
+function startNote(note) {
+    const osc = context.createOscillator();
+    osc.frequency.value = frequencies[note];
+    osc.type = waveform;
+
+    const env = context.createGain();
+    osc.connect(env).connect(volume);
+
+    sources[note] = { oscillator: osc, envelope: env };
+
+    const now = context.currentTime;
+    env.gain.cancelScheduledValues(now);
+    env.gain.setValueAtTime(0.001, now);
+    env.gain.exponentialRampToValueAtTime(1.0, now + attack);
+    env.gain.exponentialRampToValueAtTime(sustain, now + attack + decay);
+    osc.start(now);
+}
+
+function stopNote(note) {
+    if (!sources[note]) return;
+    const osc = sources[note].oscillator;
+    const env = sources[note].envelope;
+
+    const now = context.currentTime;
+    env.gain.cancelScheduledValues(now);
+    env.gain.setValueAtTime(env.gain.value, now);
+    env.gain.exponentialRampToValueAtTime(0.001, now + release);
+    osc.stop(now + release);
+
+    delete sources[note];
+}
+
+function handleSynthMousemove() {
+    volume.gain.value = gain;
+}
+window.addEventListener("mousemove", handleSynthMousemove);
+/*       */
+
+
+/* Keyboard */
+keys = document.querySelectorAll(".whitekey, .blackkey");
+const keymap = {
+    'KeyA': 'C3', 'KeyW': 'C#3', 'KeyS': 'D3', 'KeyE': 'D#3', 'KeyD': 'E3',
+    'KeyF': 'F3', 'KeyT': 'F#3', 'KeyG': 'G3', 'KeyY': 'G#3', 'KeyH': 'A3',
+    'KeyU': 'A#3', 'KeyJ': 'B3', 'KeyK': 'C4', 'KeyO': 'C#4', 'KeyL': 'D4'
+};
+for (let i=0; i<keys.length;++i) {
+    let key = keys[i];
+    key.addEventListener("mousedown", ()=>{startNote(key.id);});
+    key.addEventListener("mouseup", ()=>{stopNote(key.id);});
+    key.addEventListener("mouseenter", (evt)=>{if (evt.buttons===1) {startNote(key.id);}});
+    key.addEventListener("mouseleave", ()=>{stopNote(key.id);});
+}
+window.addEventListener('keydown', event => {
+    if (!event.repeat) {
+        const note = keymap[event.code];
+
+        if (note) {
+            startNote(note);
+        }
+    }
+});
+
+window.addEventListener('keyup', event => {
+    const note = keymap[event.code];
+
+    if (note) {
+        stopNote(note);
+    }
+});
+/*          */

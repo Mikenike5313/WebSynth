@@ -14,8 +14,8 @@
 
         <!--Base Waveform Selector-->
         <div>
-            <label for="waveform-select">Waveform</label>
-            <select id="waveform-select" value="sine">
+            <label for="waveformSelector">Waveform</label>
+            <select id="waveformSelector" value="sine">
                 <option value="sine">Sine</option>
                 <option value="square">Square</option>
                 <option value="triangle">Triangle</option>
@@ -27,47 +27,47 @@
         <!--ADSR Sliders-->
         <div>
             <label>
-                Attack <input type="range" min="0.0" max="2.0" step="0.001" value="0.05"/>
+                Attack <input id="attackSlider" type="range" min="0.0" max="2.0" step="0.001" value="0.05"/>
             </label>
             <label>
-                Decay <input type="range" min="0.0" max="2.0" step="0.001" value="0.25"/>
+                Decay <input id="decaySlider" type="range" min="0.0" max="2.0" step="0.001" value="0.25"/>
             </label>
             <label>
-                Sustain <input type="range" min="0.001" max="1.0" step="0.001" value="0.6"/>
+                Sustain <input id="sustainSlider" type="range" min="0.001" max="1.0" step="0.001" value="0.6"/>
             </label>
             <label>
-                Release <input type="range" min="0.005" max="2.0" step="0.001" value="2"/>
+                Release <input id="releaseSlider" type="range" min="0.005" max="2.0" step="0.001" value="2"/>
             </label>
         </div>
         <!--            -->
 
         <!--Keyboard-->
         <div class="keyboard">
-            <button class="whitekey"></button> <!--C 3-->
-            <button class="blackkey"></button> <!--C#3-->
-            <button class="whitekey"></button> <!--D 3-->
-            <button class="blackkey"></button> <!--D#3-->
-            <button class="whitekey"></button> <!--E 3-->
-            <button class="whitekey"></button> <!--F 3-->
-            <button class="blackkey"></button> <!--F#3-->
-            <button class="whitekey"></button> <!--G 3-->
-            <button class="blackkey"></button> <!--G#3-->
-            <button class="whitekey"></button> <!--A 3-->
-            <button class="blackkey"></button> <!--A#3-->
-            <button class="whitekey"></button> <!--B 3-->
-            <button class="whitekey"></button> <!--C 4-->
-            <button class="blackkey"></button> <!--C#4-->
-            <button class="whitekey"></button> <!--D 4-->
-            <button class="blackkey"></button> <!--D#4-->
-            <button class="whitekey"></button> <!--E 4-->
-            <button class="whitekey"></button> <!--F 4-->
-            <button class="blackkey"></button> <!--F#4-->
-            <button class="whitekey"></button> <!--G 4-->
-            <button class="blackkey"></button> <!--G#4-->
-            <button class="whitekey"></button> <!--A 4-->
-            <button class="blackkey"></button> <!--A#4-->
-            <button class="whitekey"></button> <!--B 4-->
-            <button class="whitekey"></button> <!--C 5-->
+            <button id="C3" class="whitekey"></button>
+            <button id="C#3" class="blackkey"></button>
+            <button id="D3" class="whitekey"></button>
+            <button id="D#3" class="blackkey"></button>
+            <button id="E3" class="whitekey"></button>
+            <button id="F3" class="whitekey"></button>
+            <button id="F#3" class="blackkey"></button>
+            <button id="G3" class="whitekey"></button>
+            <button id="G#3" class="blackkey"></button>
+            <button id="A3" class="whitekey"></button>
+            <button id="A#3" class="blackkey"></button>
+            <button id="B3" class="whitekey"></button>
+            <button id="C4" class="whitekey"></button>
+            <button id="C#4" class="blackkey"></button>
+            <button id="D4" class="whitekey"></button>
+            <button id="D#4" class="blackkey"></button>
+            <button id="E4" class="whitekey"></button>
+            <button id="F4" class="whitekey"></button>
+            <button id="F#4" class="blackkey"></button>
+            <button id="G4" class="whitekey"></button>
+            <button id="G#4" class="blackkey"></button>
+            <button id="A4" class="whitekey"></button>
+            <button id="A#4" class="blackkey"></button>
+            <button id="B4" class="whitekey"></button>
+            <button id="C5" class="whitekey"></button>
         </div>
         <!--        -->
 
