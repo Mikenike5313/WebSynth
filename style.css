@@ -23,6 +23,11 @@
 }
 
 body {
+    user-select: none; /* chrome and Opera */
+    -moz-user-select: none; /* Firefox */
+    -webkit-text-select: none; /* IOS Safari */
+    -webkit-user-select: none; /* Safari */
+
     background-color: var(--bg-color);
 }
 
@@ -53,14 +58,11 @@ body {
     position: relative;
     width: var(--knob-size);
     height: var(--knob-size);
-    border-width: var(--knob-border-width);
-    border-color: var(--knob-accent-color);
-    border-style: solid;
+    border: var(--knob-border-width) solid var(--knob-accent-color);
     border-bottom-color: transparent;
     border-radius: 50%;
     padding: var(--knob-padding);
     background-color: transparent;
-    user-select:  none;
 }
 .knob:hover {
     cursor: grab;
@@ -74,7 +76,6 @@ body {
     height: 100%;
     border-radius: 50%;
     background-color: var(--knob-color);
-    user-select:  none;
 }
 .knobHeadTick {
     position: absolute;
