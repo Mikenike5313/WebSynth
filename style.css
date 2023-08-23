@@ -1,6 +1,5 @@
 :root {
     --bg-color: #333;
-    --text-color: white;
 
     /*  Knob Variables  */
     --knob-size: 16vmin;
@@ -25,7 +24,6 @@
 
 body {
     background-color: var(--bg-color);
-    color: var(--text-color);
 }
 
 
