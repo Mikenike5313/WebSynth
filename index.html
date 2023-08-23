@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Web Synth</title>
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body>
+        <h1>Web Synth</h1>
+
+        <!--Gain Knob-->
+        <div class="knob">
+            <div class="knobHead">
+                <div class="knobHeadTick"></div>
+            </div>
+        </div>
+        <!--         -->
+
+        <!--Base Waveform Selector-->
+        <div>
+            <label for="waveform-select">Waveform</label>
+            <select id="waveform-select" value="sine">
+                <option value="sine">Sine</option>
+                <option value="square">Square</option>
+                <option value="triangle">Triangle</option>
+                <option value="sawtooth">Sawtooth</option>
+            </select>
+        </div>
+        <!--                      -->
+
+        <!--ADSR Sliders-->
+        <div>
+            <label>
+                Attack <input type="range" min="0.0" max="2.0" step="0.001" value="0.05"/>
+            </label>
+            <label>
+                Decay <input type="range" min="0.0" max="2.0" step="0.001" value="0.25"/>
+            </label>
+            <label>
+                Sustain <input type="range" min="0.001" max="1.0" step="0.001" value="0.6"/>
+            </label>
+            <label>
+                Release <input type="range" min="0.005" max="2.0" step="0.001" value="2"/>
+            </label>
+        </div>
+        <!--            -->
+
+        <!--Keyboard-->
+        <div class="keyboard">
+            <button class="whitekey"></button> <!--C 3-->
+            <button class="blackkey"></button> <!--C#3-->
+            <button class="whitekey"></button> <!--D 3-->
+            <button class="blackkey"></button> <!--D#3-->
+            <button class="whitekey"></button> <!--E 3-->
+            <button class="whitekey"></button> <!--F 3-->
+            <button class="blackkey"></button> <!--F#3-->
+            <button class="whitekey"></button> <!--G 3-->
+            <button class="blackkey"></button> <!--G#3-->
+            <button class="whitekey"></button> <!--A 3-->
+            <button class="blackkey"></button> <!--A#3-->
+            <button class="whitekey"></button> <!--B 3-->
+            <button class="whitekey"></button> <!--C 4-->
+            <button class="blackkey"></button> <!--C#4-->
+            <button class="whitekey"></button> <!--D 4-->
+            <button class="blackkey"></button> <!--D#4-->
+            <button class="whitekey"></button> <!--E 4-->
+            <button class="whitekey"></button> <!--F 4-->
+            <button class="blackkey"></button> <!--F#4-->
+            <button class="whitekey"></button> <!--G 4-->
+            <button class="blackkey"></button> <!--G#4-->
+            <button class="whitekey"></button> <!--A 4-->
+            <button class="blackkey"></button> <!--A#4-->
+            <button class="whitekey"></button> <!--B 4-->
+            <button class="whitekey"></button> <!--C 5-->
+        </div>
+        <!--        -->
+
+        <script src="main.js"></script>
+    </body>
+</html>

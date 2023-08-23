@@ -1,0 +1,91 @@
+:root {
+    --bg-color: #333;
+    --text-color: white;
+
+    /*  Knob Variables  */
+    --knob-size: 16vmin;
+    --knob-border-width: 0.2vmin;
+    --knob-padding: 1.4vmin;
+    --knob-tick-width: 0.2vmin;
+    --knob-tick-height: 2vmin;
+    --knob-color: #aaa;
+    --knob-accent-color: #ccc;
+    /*                  */
+
+
+    /*  Keyboard Variables  */
+
+    /*                      */
+
+
+    /*  Slider Variables  */
+    
+    /*                    */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+
+.keyboard {
+    margin: auto auto;
+    position: relative;
+    bottom: 0;
+}
+.whitekey {
+    display: inline-block;
+    width: 6vw;
+    height: 27vw;
+    border: solid black;
+}
+.blackkey {
+    display: inline-block;
+    margin: auto -1.5vw;
+    position: absolute;
+    width: 3vw;
+    height: 16.5vw;
+    background: black;
+}
+
+
+.knob {
+    box-sizing: border-box;
+    position: relative;
+    width: var(--knob-size);
+    height: var(--knob-size);
+    border-width: var(--knob-border-width);
+    border-color: var(--knob-accent-color);
+    border-style: solid;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    padding: var(--knob-padding);
+    background-color: transparent;
+    user-select:  none;
+}
+.knob:hover {
+    cursor: grab;
+}
+.knob:active {
+    cursor: grabbing;
+}
+.knobHead {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--knob-color);
+    user-select:  none;
+}
+.knobHeadTick {
+    position: absolute;
+    top: 0;
+    left: calc(50% - var(--knob-tick-width));
+    width: var(--knob-tick-width);
+    height: var(--knob-tick-height);
+    content: "";
+    background-color: var(--knob-accent-color);
+    transform-origin: calc(var(--knob-tick-width)/2) calc(var(--knob-size)/2 - var(--knob-padding) - var(--knob-border-width));
+    transform: rotate(0deg);
+}
