@@ -66,6 +66,11 @@ releaseSlider.addEventListener("change", (evt)=>{release=parseFloat(evt.target.v
 /*               */
 
 
+/* Compressor */
+
+/*            */
+
+
 /* Synth */
 const frequencies = {
     'C3': 130.81, 'C#3': 138.59, 'D3': 146.83, 'D#3': 155.56, 'E3': 164.81,
