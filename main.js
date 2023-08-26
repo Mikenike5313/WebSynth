@@ -67,7 +67,26 @@ releaseSlider.addEventListener("change", (evt)=>{release=parseFloat(evt.target.v
 
 
 /* Compressor */
-
+threshold = -24;
+thresholdSlider = document.querySelector("#thresholdSlider");
+thresholdSlider.addEventListener("change", (evt) => 
+    compressor.threshold.value = parseFloat(evt.target.value));
+knee = -24;
+kneeSlider = document.querySelector("#kneeSlider");
+kneeSlider.addEventListener("change", (evt) => 
+    compressor.knee.value = parseFloat(evt.target.value));
+ratio = 12;
+ratioSlider = document.querySelector("#ratioSlider");
+ratioSlider.addEventListener("change", (evt) => 
+    compressor.ratio.value = parseFloat(evt.target.value));
+compressorAttack = 0.003;
+compressorAttackSlider = document.querySelector("#compressorAttackSlider");
+compressorAttackSlider.addEventListener("change", (evt) => 
+    compressor.attack.value = parseFloat(evt.target.value));
+compressorRelease = 0.25;
+compressorReleaseSlider = document.querySelector("#compressorReleaseSlider");
+compressorReleaseSlider.addEventListener("change", (evt) =>
+    compressor.release.value = parseFloat(evt.target.value));
 /*            */
 
 
@@ -82,9 +101,12 @@ const frequencies = {
 
 const context = new AudioContext();
 
+const compressor = context.createDynamicsCompressor();
+compressor.connect(context.destination);
+
 const volume = context.createGain();
 volume.gain.value = gain;
-volume.connect(context.destination);
+volume.connect(compressor);
 
 const sources = {};
 
@@ -132,7 +154,8 @@ keys = document.querySelectorAll(".whitekey, .blackkey");
 const keymap = {
     'KeyA': 'C3', 'KeyW': 'C#3', 'KeyS': 'D3', 'KeyE': 'D#3', 'KeyD': 'E3',
     'KeyF': 'F3', 'KeyT': 'F#3', 'KeyG': 'G3', 'KeyY': 'G#3', 'KeyH': 'A3',
-    'KeyU': 'A#3', 'KeyJ': 'B3', 'KeyK': 'C4', 'KeyO': 'C#4', 'KeyL': 'D4'
+    'KeyU': 'A#3', 'KeyJ': 'B3', 'KeyK': 'C4', 'KeyO': 'C#4', 'KeyL': 'D4',
+    'KeyP': 'D#4', 'Semicolon': 'E4'
 };
 for (let i=0; i<keys.length;++i) {
     let key = keys[i];

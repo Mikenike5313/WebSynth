@@ -26,6 +26,7 @@
 
         <!--ADSR Sliders-->
         <div>
+            <h1>ADSR</h1>
             <label>
                 Attack <input id="attackSlider" type="range" min="0.0" max="2.0" step="0.001" value="0.05"/>
             </label>
@@ -40,6 +41,27 @@
             </label>
         </div>
         <!--            -->
+
+        <!--Compressor Sliders-->
+        <div>
+            <h1>Dynamics Compressor</h1>
+            <label>
+                Threshold <input id="thresholdSlider" type="range" min="-100" max="0" step="0.001" value="-24"/>
+            </label>
+            <label>
+                Knee <input id="kneeSlider" type="range" min="0" max="40" step="0.001" value="30"/>
+            </label>
+            <label>
+                Ratio <input id="ratioSlider" type="range" min="1" max="20" step="0.001" value="12"/>
+            </label>
+            <label>
+                Attack <input id="compressorAttackSlider" type="range" min="0" max="1" step="0.001" value="0.003"/>
+            </label>
+            <label>
+                Release <input id="compressorReleaseSlider" type="range" min="0" max="1" step="0.001" value="0.25"/>
+            </label>
+        </div>
+        <!--                 -->
 
         <!--Keyboard-->
         <div class="keyboard">
