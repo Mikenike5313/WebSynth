@@ -104,8 +104,9 @@ const context = new AudioContext();
 const compressor = context.createDynamicsCompressor();
 compressor.connect(context.destination);
 
+const gainMultiplier = 0.5;
 const volume = context.createGain();
-volume.gain.value = gain;
+volume.gain.value = gainMultiplier*gain;
 volume.connect(compressor);
 
 const sources = {};
@@ -143,7 +144,7 @@ function stopNote(note) {
 }
 
 function handleSynthMousemove() {
-    volume.gain.value = gain;
+    volume.gain.value = gainMultiplier*gain;
 }
 window.addEventListener("mousemove", handleSynthMousemove);
 /*       */
